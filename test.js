@@ -1,0 +1,1 @@
+// Lecture 0. Test merge request by Fokin I.S.
