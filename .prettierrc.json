@@ -1,8 +1,20 @@
 {
-    "trailingComma": "all",
-    "useTabs": false,
+    "workbench.startupEditor": "none",
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "editor.tabSize": 2,
     "tabWidth": 4,
     "semi": true,
-    "singleQuote": true,
-    "printWidth": 100
+    "editor.cursorBlinking": "solid",
+    "files.autoSave": "onFocusChange",
+    "editor.minimap.enabled": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "workbench.colorTheme": "Firefox Devtools",
+    "prettier.printWidth": 500,
+    "explorer.confirmDelete": false,
+    "bracketSpacing": true
 }
