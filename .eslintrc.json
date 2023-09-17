@@ -10,7 +10,38 @@
                 "plugin:@angular-eslint/recommended",
                 "plugin:@angular-eslint/template/process-inline-templates"
             ],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "ecmaVersion": 2020,
+                "sourceType": "module"
+            },
+            "plugins": [
+              "@typescript-eslint"
+            ],
             "rules": {
+                "indent": ["off", 4],
+                "quotes": ["error", "single"],
+                "semi": ["error", "never"],
+                "@typescript-eslint/no-this-alias": ["error", { "allowedNames": ["self"] }],
+                "@typescript-eslint/no-explicit-any": "error",
+                "@typescript-eslint/explicit-module-boundary-types": "off",
+                "@typescript-eslint/no-empty-function": "off",
+                "@typescript-eslint/no-inferrable-types": "off",
+                "@typescript-eslint/ban-ts-comment": "off",
+                "@typescript-eslint/member-ordering": [
+                    "error",
+                    {
+                        "default": [
+                            "public-instance-field",
+                            "private-instance-field",
+                            "public-constructor",
+                            "private-constructor",
+                            "public-instance-method",
+                            "protected-instance-method",
+                            "private-instance-method"
+                        ]
+                    }
+                ],
                 "@angular-eslint/directive-selector": [
                     "error",
                     {
