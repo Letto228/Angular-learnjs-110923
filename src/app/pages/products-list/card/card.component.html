@@ -1,0 +1,15 @@
+<div class="border">
+    <div class="wrap">
+        <div class="product-wrap">
+            <img [src]="productMock.images[0].url" [alt]="productMock.images[0].source" />
+        </div>
+        <div class="loop-action">
+            <button class="add-to-cart">Быстрый просмотр</button>
+            <button class="loop-add-to-cart" (click)="buy($event)">В корзину</button>
+        </div>
+    </div>
+    <div class="product-info">
+        <h3 class="product-title">{{ productMock.name }}</h3>
+        <div class="price">&#8381; {{ productMock.price }}</div>
+    </div>
+</div>
