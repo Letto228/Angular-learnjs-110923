@@ -45,7 +45,7 @@ module.exports = {
         'consistent-return': 'warn',
         'vars-on-top': 'warn',
         'no-var': 'warn',
-        'no-console': 'off',
+        'no-console': ['error', {allow: ['info', 'assert', 'warn', 'error']}],
         camelcase: [
             'warn',
             {

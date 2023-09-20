@@ -26,9 +26,4 @@ export class AppComponent {
         // eslint-disable-next-line no-console
         console.log(event);
     }
-
-    onCardClick() {
-        // eslint-disable-next-line no-console
-        console.log('click card');
-    }
 }
