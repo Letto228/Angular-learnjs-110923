@@ -8,7 +8,7 @@ import {productMock} from '../../../shared/products/product.mock';
     styleUrls: ['./card.component.css'],
 })
 export class CardComponent {
-    productMock: IProduct = productMock;
+    readonly productMock: IProduct = productMock;
 
     buy(event: Event) {
         event.stopPropagation();
