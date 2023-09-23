@@ -18,5 +18,6 @@ export class ProductsListComponent {
     buyProductClick(product: IProduct) {
         // eslint-disable-next-line no-console
         console.log(product);
+        // тут думала сначала id передавать, но потом решила весь объект
     }
 }

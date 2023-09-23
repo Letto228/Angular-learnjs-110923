@@ -9,6 +9,8 @@ import {IProduct} from 'src/app/shared/products/product.interface';
 export class CardComponent {
     // readonly product = productsMock[0];
     @Input() product!: IProduct;
+    // запуталась с типизацией product. Понимаю, что надо указать Initial value, но не понимаю как)
+
     @Output() productBuyClick = new EventEmitter<Event>();
 
     onProductBuy(event: Event) {
