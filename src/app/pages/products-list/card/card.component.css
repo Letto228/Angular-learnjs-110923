@@ -1,0 +1,11 @@
+.card {
+    max-width: 400px;
+    padding: 4px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.card mat-card-title {
+    min-height: 65px;
+}

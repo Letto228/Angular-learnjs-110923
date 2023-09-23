@@ -1,1 +1,5 @@
-<p>Insert card component</p>
+<div class="products-list">
+    <ng-container *ngFor="let item of products">
+        <app-card [product]="item" (productToBucket)="getBucketItem($event)"></app-card>
+    </ng-container>
+</div>
