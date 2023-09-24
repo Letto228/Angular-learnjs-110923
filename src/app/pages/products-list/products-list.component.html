@@ -1,7 +1,10 @@
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
+<div *ngFor="let product of products">
+    <app-card
+        class="card"
+        [product]="product"
+        (byProductBuyChange)="addProductBasket($event)"
+        (click)="onCardClick()"
+    ></app-card>
+</div>
 
 <!-- <span>Test</span> -->
