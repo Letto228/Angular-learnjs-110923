@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {productsMock} from '../../shared/products/products.mock';
 
 @Component({
     selector: 'app-products-list',
@@ -7,8 +8,13 @@ import {Component} from '@angular/core';
     // encapsulation: ViewEncapsulation.Emulated,
 })
 export class ProductsListComponent {
+    products = productsMock;
     onCardClick() {
         // eslint-disable-next-line no-console
-        console.log('Card click');
+        // console.log('Card click');
+    }
+
+    onBuyProduct() {
+        // console.log('Clicked on Buy Product!');
     }
 }
