@@ -1,7 +1,14 @@
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
+<div *ngFor="let product of products">
+    <app-card
+        class="card"
+        [data]="{title: product.name, imgPath: product.images[0].url, description: product._id}"
+        (click)="onCardClick()"
+        (onBuy)="onBuyProduct()"
+    ></app-card>
+</div>
+<!--<app-card class="card" (click)="onCardClick()" (onBuy)="onBuyProduct()"></app-card>-->
+<!--<app-card class="card" (click)="onCardClick()"></app-card>-->
+<!--<app-card class="card" (click)="onCardClick()"></app-card>-->
+<!--<app-card class="card" (click)="onCardClick()"></app-card>-->
 
 <!-- <span>Test</span> -->
