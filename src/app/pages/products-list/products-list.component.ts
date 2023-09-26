@@ -12,29 +12,19 @@ import {IItemShoppingBasket} from '../../shared/shopping-basket/item-shopping-ba
 })
 export class ProductsListComponent {
     readonly products: IProduct[] = productsMock;
-    shoppingBasket: IItemShoppingBasket[] = [];
+    shoppingBasket: {[id: IProduct['_id']]: IItemShoppingBasket} = {};
 
     addProductBasket(productForBasket: IProductForBasket) {
-        let isUpdate = false;
-
-        if (this.shoppingBasket.length) {
-            this.shoppingBasket.forEach(itemShoppingBasket => {
-                if (itemShoppingBasket.productForBasket.id === productForBasket.id) {
-                    itemShoppingBasket.count += 1;
-                    isUpdate = true;
-                }
-            });
-        }
-
-        if (!isUpdate) {
-            this.shoppingBasket.push({productForBasket, count: 1});
+        if (this.shoppingBasket[productForBasket.id]) {
+            this.shoppingBasket[productForBasket.id].count += 1;
+        } else {
+            this.shoppingBasket[productForBasket.id] = {productForBasket, count: 1};
         }
 
         // eslint-disable-next-line no-console
         console.log('Shopping basket: ', this.shoppingBasket);
     }
 
-    // onCardClick(productForBasket: IProductForBasket) {
     onCardClick() {
         // eslint-disable-next-line no-console
         console.log('Card click');
