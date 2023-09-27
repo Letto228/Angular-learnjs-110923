@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {productsMock} from '../../shared/products/products.mock';
 
 @Component({
     selector: 'app-products-list',
@@ -7,8 +8,9 @@ import {Component} from '@angular/core';
     // encapsulation: ViewEncapsulation.Emulated,
 })
 export class ProductsListComponent {
-    onCardClick() {
+    readonly products = productsMock;
+    onBuyButtonClick(productId: string) {
         // eslint-disable-next-line no-console
-        console.log('Card click');
+        console.log(this.products.find(x => x._id === productId));
     }
 }
