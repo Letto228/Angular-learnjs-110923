@@ -1,0 +1,19 @@
+:host {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 400px;
+    height: 400px;
+    z-index: 1;
+    flex-direction: column;
+}
+
+:host(.noData) {
+    pointer-events: none;
+    background-color: inherit;
+}
