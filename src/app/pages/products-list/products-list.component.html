@@ -1,7 +1,6 @@
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-<app-card class="card" (click)="onCardClick()"></app-card>
-
+<app-card class="card" [product]="products[0]" (buyBtnClick)="onBuyBtnClick($event)"></app-card>
+<app-card class="card" [product]="products[1]" (buyBtnClick)="onBuyBtnClick($event)"></app-card>
+<app-card class="card" [product]="products[2]" (buyBtnClick)="onBuyBtnClick($event)"></app-card>
+<app-card class="card" [product]="products[3]" (buyBtnClick)="onBuyBtnClick($event)"></app-card>
+<app-card class="card" [product]="products[4]" (buyBtnClick)="onBuyBtnClick($event)"></app-card>
 <!-- <span>Test</span> -->
