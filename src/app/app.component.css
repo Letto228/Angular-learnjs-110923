@@ -3,3 +3,11 @@
     display: flex;
     flex-direction: column;
 }
+
+.red {
+    color: red;
+}
+
+.firstTemplate :host {
+    height: 100%;
+}

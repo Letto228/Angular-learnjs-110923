@@ -22,12 +22,12 @@ export class AppComponent {
             this.switchTemplate = !this.switchTemplate;
             // or
             this.closeTemplate = !this.closeTemplate;
-        }, 6000);
+        }, 60000);
         setTimeout(() => {
             this.switchTemplate = !this.switchTemplate;
             // or
             this.closeTemplate = !this.closeTemplate;
-        }, 9000);
+        }, 90000);
     }
 
     // isSidenavOpenedFromApp = false;
