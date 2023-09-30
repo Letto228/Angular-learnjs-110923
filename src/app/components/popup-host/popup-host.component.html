@@ -1,1 +1,5 @@
-<ng-container #view></ng-container>
+<div class="popup-container" [ngClass]="{'empty-template': isEmptyTemplate()}">
+    <div class="popup-content">
+        <ng-container #view></ng-container>
+    </div>
+</div>

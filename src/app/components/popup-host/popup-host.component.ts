@@ -13,4 +13,8 @@ export class PopupHostComponent {
 
     @ViewChild('view', {static: true, read: ViewContainerRef})
     private readonly view!: ViewContainerRef;
+
+    isEmptyTemplate(): boolean {
+        return !this.view.length;
+    }
 }
