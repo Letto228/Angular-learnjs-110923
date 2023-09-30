@@ -7,15 +7,15 @@ import {IProduct} from '../../../shared/products/product.interface';
     styleUrls: ['./card.component.css'],
 })
 export class CardComponent {
-    @Input() product: IProduct = {} as IProduct;
+    @Input() product: IProduct | null = null;
     @Output() buyProduct: EventEmitter<IProduct> = new EventEmitter<IProduct>();
 
     protected onProductBuy(event: Event) {
         event.stopPropagation();
-        this.buyProduct.emit(this.product);
+        this.product && this.buyProduct.emit(this.product);
     }
 
     protected isStarActive(starIndex: number): boolean {
-        return this.product.rating >= starIndex;
+        return !!this.product && this.product.rating >= starIndex;
     }
 }
