@@ -8,7 +8,7 @@ import {productMock} from '../../../shared/products/product.mock';
     styleUrls: ['./card.component.css'],
 })
 export class CardComponent {
-    protected product: IProduct = productMock;
+    product: IProduct = productMock;
 
     protected byeProduct(event: Event): void {
         event.stopPropagation();
