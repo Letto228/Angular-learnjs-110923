@@ -8,7 +8,10 @@ import {Component, Input, TemplateRef, ViewChild, ViewContainerRef} from '@angul
 export class PopupHostComponent {
     @Input() set template(template: TemplateRef<unknown> | null) {
         this.view?.clear();
-        template && this.view?.createEmbeddedView(template);
+
+        if (template) {
+            this.view?.createEmbeddedView(template);
+        }
     }
 
     @ViewChild('view', {static: true, read: ViewContainerRef})
