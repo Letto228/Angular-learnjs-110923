@@ -12,7 +12,7 @@ export class CardComponent {
 
     onProductBuy(event: Event) {
         event.stopPropagation();
-        this.buyButtonClick.emit(this.product?._id);
+        this.buyButtonClick.emit(this.product!._id);
         // eslint-disable-next-line no-console
         console.log('Buy product');
     }
