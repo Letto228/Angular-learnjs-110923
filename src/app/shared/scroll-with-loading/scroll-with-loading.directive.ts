@@ -1,4 +1,4 @@
-import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
+import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {LoadDirection} from './load-direction';
 import {borderOffset} from './scroll-with-loading.const';
 
@@ -6,6 +6,8 @@ import {borderOffset} from './scroll-with-loading.const';
     selector: '[appScrollWithLoading]',
 })
 export class ScrollWithLoadingDirective {
+    @Input() isLoading = false;
+
     @Output() readonly loadResource: EventEmitter<LoadDirection> =
         new EventEmitter<LoadDirection>();
 
@@ -13,6 +15,10 @@ export class ScrollWithLoadingDirective {
 
     @HostListener('scroll', ['$event.target'])
     onScroll({scrollTop, clientHeight, scrollHeight}: HTMLElement) {
+        if (this.isLoading) {
+            return;
+        }
+
         const prevScrollPosition = this.prevScrollPosition;
 
         this.prevScrollPosition = scrollTop;
