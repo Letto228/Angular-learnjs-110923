@@ -38,3 +38,11 @@
     align-items: center;
     width: 100%;
 }
+
+.page-number {
+    cursor: pointer;
+}
+
+.page-number-active {
+    color: blue;
+}
