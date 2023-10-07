@@ -36,8 +36,7 @@
             <button
                 *ngFor="let index of pageIndexes"
                 mat-icon-button
-                class="page-number"
-                [class.page-number-active]="activeIndex === index"
+                [class.page-active]="activeIndex === index"
                 (click)="selectIndex(index)"
             >
                 {{ index + 1 }}
