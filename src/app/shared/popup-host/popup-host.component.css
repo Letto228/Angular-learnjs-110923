@@ -15,6 +15,6 @@
     transform: translate(-50%, -50%);
 }
 
-.tooltip {
+:host(.tooltip) {
     background-color: inherit;
 }
