@@ -8,7 +8,7 @@ import {IProduct} from '../../../shared/products/product.interface';
 })
 export class CardComponent {
     @Input() product: IProduct | null = null;
-    @Output() buyBtnClick = new EventEmitter<any>();
+    @Output() readonly buyBtnClick = new EventEmitter<any>();
 
     onProductBuy(event: Event) {
         event.stopPropagation();
