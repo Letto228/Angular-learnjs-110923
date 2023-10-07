@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {productsMock} from '../../shared/products/products.mock';
 import {IProduct} from '../../shared/products/product.interface';
+import {LoadDirection} from '../../shared/scroll-with-loading/load-direction.enum';
 
 @Component({
     selector: 'app-products-list',
@@ -29,5 +30,10 @@ export class ProductsListComponent implements OnInit {
     onProductBuy(id: IProduct['_id']) {
         // eslint-disable-next-line no-console
         console.log(id);
+    }
+
+    onLoad(direction: LoadDirection) {
+        // eslint-disable-next-line no-console
+        console.log(`Направление загрузки: ${direction}`);
     }
 }
