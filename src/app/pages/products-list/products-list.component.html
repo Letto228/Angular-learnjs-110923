@@ -1,18 +1,14 @@
-<!-- <ng-template #template [appDumpNgIf]="products" let-default let-surName="dumpNgIf">
-    {{default}}
-    <h3>{{surName}}</h3>
-</ng-template> -->
-<ng-template let-productsFromNgIf="ngIf" [ngIf]="products" [ngIfElse]="loaderTemplate">
-    <!-- Раскомментировать div при выполнении ДЗ -->
-    <!-- <div appScrollWithLoading class="scroll-container" (loadData)="onLoad($event)"> -->
-    <app-card class="card" [product]="productsFromNgIf[0]" (buy)="onProductBuy($event)"></app-card>
-    <app-card class="card" [product]="productsFromNgIf[1]" (buy)="onProductBuy($event)"></app-card>
-    <app-card class="card" [product]="productsFromNgIf[2]" (buy)="onProductBuy($event)"></app-card>
-    <app-card class="card" [product]="productsFromNgIf[3]" (buy)="onProductBuy($event)"></app-card>
-    <app-card class="card" [product]="productsFromNgIf[4]" (buy)="onProductBuy($event)"></app-card>
-    <!-- </div> -->
+<ng-template [ngIf]="productsStoreView?.length" [ngIfElse]="loaderTemplate">
+  <!-- Раскомментировать div при выполнении ДЗ -->
+  <div class="scroll-container" (loadData)="onLoad($event)" appScrollWithLoading>
+    <app-card
+      class="card"
+      *ngFor="let item of productsStoreView"
+      [product]="item"
+      (buy)="onProductBuy($event)"></app-card>
+  </div>
 </ng-template>
 
 <ng-template #loaderTemplate>
-    <mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </ng-template>
