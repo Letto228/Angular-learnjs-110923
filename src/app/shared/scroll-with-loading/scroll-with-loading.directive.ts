@@ -1,8 +1,6 @@
 import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 import { borderOffset } from './border-offset.const';
-import { isScrollReachedBottomOffcet } from './utils/is-scroll-reached-bottom-offcet';
-import { isScrollReachedTopOffcet } from './utils/is-scroll-reached-top-offcet';
 @Directive({
   selector: '[appScrollWithLoading]'
 })

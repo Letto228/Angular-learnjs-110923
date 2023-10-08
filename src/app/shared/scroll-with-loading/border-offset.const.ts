@@ -1,1 +1,1 @@
-export const borderOffset = 100;
+export const borderOffset = 150;
