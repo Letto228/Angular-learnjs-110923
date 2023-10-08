@@ -1,67 +1,43 @@
-<!-- <ng-template let-productsFromNgIf="ngIf" [ngIf]="products" [ngIfElse]="loaderTemplate"> -->
-<div *ngIf="products as productsFromNgIf; else loaderTemplate" class="scroll-container">
-    <!-- <div
-        *ngIf="products; else: loaderTemplate; ngIf as productsFromNgIf"
-        class="scroll-container"
-    > -->
-    <!-- <div
-        *ngIf="products; else: loaderTemplate; let productsFromNgIf = ngIf"
-        class="scroll-container"
-    > -->
-
-    <!-- Раскомментрировать для ДЗ -->
-    <!-- <ng-container
-        *appPagination="
-            let productsGroup of products;
-            chankSize: 4;
-            let pageIndexes = pageIndexes;
-            let activeIndex = index;
-            let next = next;
-            let back = back;
-            let selectIndex = selectIndex
-        "
-    > -->
+<div class="scroll-container" *ngIf="products as productsFromNgIf; else loaderTemplate">
+  <ng-container
+    *appPagination="
+      let productsGroup of products;
+      chankSize: 4;
+      let pageIndexes = pageIndexes;
+      let activeIndex = index;
+      let next = next;
+      let back = back;
+      let selectIndex = selectIndex
+    ">
     <div class="cards">
-        <app-card
-            *ngFor="let product of productsFromNgIf; trackBy: trackById"
-            class="card"
-            [product]="product"
-            (buy)="onProductBuy($event)"
-        ></app-card>
+      <app-card
+        class="card"
+        *ngFor="let product of productsGroup; trackBy: trackById"
+        [product]="product"
+        (buy)="onProductBuy($event)"></app-card>
     </div>
     <div class="pagination">
-        <!-- Add pagination control -->
+      <!-- Add pagination control -->
+      <button (click)="back()" mat-icon-button>
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <div class="pagination__page-number-container">
+        <button
+          class="pagination__page-number"
+          *ngFor="let index of pageIndexes"
+          [class.pagination__page-number_active]="activeIndex === index"
+          (click)="selectIndex(index)"
+          mat-icon-button>
+          {{ index + 1 }}
+        </button>
+      </div>
+      <button (click)="next()" mat-icon-button>
+        <mat-icon>chevron_right</mat-icon>
+      </button>
     </div>
-    <!-- </ng-container> -->
-
-    <!-- <app-card
-            class="card"
-            [product]="productsFromNgIf[0]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[1]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[2]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[3]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[4]"
-            (buy)="onProductBuy($event)"
-        ></app-card> -->
+  </ng-container>
 </div>
-<!-- </ng-template> -->
 
 <ng-template #loaderTemplate>
-    <mat-spinner></mat-spinner>
+  <mat-spinner></mat-spinner>
 </ng-template>
