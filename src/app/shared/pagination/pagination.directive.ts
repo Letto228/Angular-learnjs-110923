@@ -18,8 +18,10 @@ import {groupItems} from './utils/group-items';
 export class PaginationDirective<T> implements OnChanges, OnInit, OnDestroy {
     @Input() appPaginationChankSize = 1;
     @Input() appPaginationOf: T[] | undefined | null;
+
     private readonly currentIndex$ = new BehaviorSubject<number>(0);
     private readonly subscription = new Subscription();
+
     private groupedItems: Array<{page: number; elements: T[]}> = [];
     constructor(
         private readonly viewContainerRef: ViewContainerRef,
@@ -34,8 +36,8 @@ export class PaginationDirective<T> implements OnChanges, OnInit, OnDestroy {
         this.listenCurrentIndex();
     }
 
-    ngOnChanges({appPaginationOf}: SimpleChanges): void {
-        if (appPaginationOf) {
+    ngOnChanges({appPaginationOf, appPaginationChankSize}: SimpleChanges): void {
+        if (appPaginationOf || appPaginationChankSize) {
             this.updateView();
         }
     }
