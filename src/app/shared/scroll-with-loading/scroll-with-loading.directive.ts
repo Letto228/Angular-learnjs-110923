@@ -1,4 +1,4 @@
-import {Directive, OnInit, Output, EventEmitter, ElementRef, HostListener} from '@angular/core';
+import {Directive, Output, EventEmitter, HostListener} from '@angular/core';
 import {LoadDirection} from './load-direction';
 
 const BORDER_OFFSET = 100;
@@ -6,50 +6,31 @@ const BORDER_OFFSET = 100;
 @Directive({
     selector: '[appScrollWithLoading]',
 })
-export class ScrollWithLoadingDirective implements OnInit {
+export class ScrollWithLoadingDirective {
     @Output() loadData = new EventEmitter<LoadDirection>();
-    private isSegmentTop = false;
-    private isSegmentBottom = false;
-
     private currentScrollTop = 0;
-    private currentScrollBottom: number | null = null;
-
-    constructor(private readonly elementRef: ElementRef) {}
-
-    ngOnInit(): void {
-        this.setCurrentScrollBottom();
-    }
-
-    private setCurrentScrollBottom(): void {
-        const nativeElement = this.elementRef.nativeElement;
-
-        this.currentScrollBottom = nativeElement.scrollHeight - nativeElement.clientHeight;
-    }
 
     @HostListener('scroll', ['$event.target'])
     currentScroll({clientHeight, scrollHeight, scrollTop}: HTMLElement) {
-        this.isSegmentTop = scrollTop < BORDER_OFFSET && scrollTop < this.currentScrollTop;
-        this.isSegmentBottom =
-            scrollTop > this.currentScrollBottom! - BORDER_OFFSET &&
-            scrollTop > this.currentScrollTop;
+        const isIntersectedTopOffset = scrollTop < BORDER_OFFSET;
+        const isScrollToTop = scrollTop < this.currentScrollTop;
 
-        const loadDirection = ScrollWithLoadingDirective.getLoadDirection(
-            this.isSegmentTop,
-            this.isSegmentBottom,
-        );
+        const isSegmentTop = isIntersectedTopOffset && isScrollToTop;
+        const currentScrollBottom = scrollHeight - clientHeight;
+
+        const isSegmentBottom =
+            scrollTop > currentScrollBottom - BORDER_OFFSET && scrollTop > this.currentScrollTop;
+
+        const loadDirection = this.getLoadDirection(isSegmentTop, isSegmentBottom);
 
         if (loadDirection) {
             this.loadData.emit(loadDirection);
         }
 
         this.currentScrollTop = scrollTop;
-        this.currentScrollBottom = scrollHeight - clientHeight;
     }
 
-    private static getLoadDirection(
-        isSegmentTop: boolean,
-        isSegmentBottom: boolean,
-    ): LoadDirection | null {
+    getLoadDirection(isSegmentTop: boolean, isSegmentBottom: boolean): LoadDirection | null {
         if (isSegmentTop) {
             return LoadDirection.Back;
         }
