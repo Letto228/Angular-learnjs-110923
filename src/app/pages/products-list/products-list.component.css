@@ -38,3 +38,7 @@
     align-items: center;
     width: 100%;
 }
+
+.pagination-active {
+    background-color: pink;
+}
