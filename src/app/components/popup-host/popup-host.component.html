@@ -1,3 +1,8 @@
-<div class="content-wrapper">
-    <ng-container *ngTemplateOutlet="template; context: {}"></ng-container>
+<div class="popup-content">
+    <div class="popup-content__header">
+        <button class="popup-content__close-btn" (click)="close()">X</button>
+    </div>
+    <div class="popup-content__body">
+        <ng-template [ngTemplateOutlet]="template$ | async"></ng-template>
+    </div>
 </div>
