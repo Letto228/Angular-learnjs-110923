@@ -6,10 +6,13 @@ import {
     Optional,
     Self,
     SkipSelf,
+    ViewChild,
+    TemplateRef,
 } from '@angular/core';
 import {IProduct} from '../../shared/products/product.interface';
 import {ProductsStoreService} from '../../shared/products/products-store.service';
 import {NAME_TOKEN} from '../../shared/test-token/name.token';
+import {PopupService} from '../../shared/popup/popup.service';
 
 @Component({
     selector: 'app-products-list',
@@ -30,12 +33,15 @@ export class ProductsListComponent implements OnInit {
     // );
 
     // products$: Observable<IProduct[]> = of(productsMock);
+    @ViewChild('popupTemplate') popupTemplate!: TemplateRef<unknown>;
+
     readonly products$ = this.productsStoreService.products$;
 
     // constructor(private readonly productsStoreService: ProductsStoreService) {}
     constructor(
         // @Inject(ProductsStoreService) private readonly productsStoreService: ProductsStoreService,
         private readonly productsStoreService: ProductsStoreService,
+        private readonly popupService: PopupService,
         // @Inject('ProductsStore')
         // private readonly productsStoreServiceString: ProductsStoreService,
         // @Inject('products') readonly products$: Observable<IProduct[] | null>,
@@ -56,6 +62,9 @@ export class ProductsListComponent implements OnInit {
     ngOnInit() {
         // console.log(this.name);
         this.productsStoreService.loadProducts();
+        setTimeout(() => {
+            this.popupService.loadPopupTemplate(this.popupTemplate);
+        }, 2000);
     }
 
     onProductBuy(id: IProduct['_id']) {
