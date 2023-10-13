@@ -14,7 +14,7 @@ export class ProductsListComponent {
     products$: Observable<IProduct[]> = of(productsMock);
 
     // for easy
-    name = 'Мышь';
+    name = 'Планшет';
 
     // for hard
     readonly propertyName = 'feedbacksCount' as const; // keyof IProduct
