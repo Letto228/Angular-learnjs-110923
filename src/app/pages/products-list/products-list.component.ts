@@ -18,7 +18,7 @@ export class ProductsListComponent {
 
     // for hard
     readonly propertyName = 'feedbacksCount' as const; // keyof IProduct
-    searchPropertyValue = 2;
+    searchPropertyValue = 4;
 
     constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
