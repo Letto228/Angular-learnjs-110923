@@ -18,10 +18,6 @@ export class ProductsListComponent implements OnInit {
             this.products = productsMock;
             this.changeDetectorRef.markForCheck();
         }, 3000);
-        setTimeout(() => {
-            this.products = [...productsMock.map(product => ({...product, feedbacksCount: 1}))];
-            this.changeDetectorRef.markForCheck();
-        }, 6000);
     }
 
     onProductBuy(id: IProduct['_id']) {

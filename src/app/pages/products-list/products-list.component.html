@@ -1,66 +1,44 @@
 <!-- <ng-template let-productsFromNgIf="ngIf" [ngIf]="products" [ngIfElse]="loaderTemplate"> -->
 <div *ngIf="products as productsFromNgIf; else loaderTemplate" class="scroll-container">
-    <!-- <div
-        *ngIf="products; else: loaderTemplate; ngIf as productsFromNgIf"
-        class="scroll-container"
-    > -->
-    <!-- <div
-        *ngIf="products; else: loaderTemplate; let productsFromNgIf = ngIf"
-        class="scroll-container"
-    > -->
-
-    <!-- Раскомментрировать для ДЗ -->
-    <!-- <ng-container
+    <ng-container
         *appPagination="
-            let productsGroup of products;
-            chankSize: 4;
-            let pageIndexes = pageIndexes;
-            let activeIndex = index;
+            let productsGroup of productsFromNgIf;
+            let currentPage = currentPage;
+            let arrayPages = arrayPages;
             let next = next;
             let back = back;
-            let selectIndex = selectIndex
+            let selectedPage = selectedPage
         "
-    > -->
-    <div class="cards">
-        <app-card
-            *ngFor="let product of productsFromNgIf; trackBy: trackById"
-            class="card"
-            [product]="product"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-    </div>
-    <div class="pagination">
-        <!-- Add pagination control -->
-    </div>
-    <!-- </ng-container> -->
-
-    <!-- <app-card
-            class="card"
-            [product]="productsFromNgIf[0]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[1]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[2]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[3]"
-            (buy)="onProductBuy($event)"
-        ></app-card>
-        <app-card
-            class="card"
-            [product]="productsFromNgIf[4]"
-            (buy)="onProductBuy($event)"
-        ></app-card> -->
+    >
+        <div class="cards">
+            <app-card
+                *ngFor="let product of productsGroup; trackBy: trackById"
+                class="card"
+                [product]="product"
+                (buy)="onProductBuy($event)"
+            ></app-card>
+        </div>
+        <div class="pagination">
+            <button mat-icon-button (click)="back()">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <div class="pagination__page-number-container">
+                <button
+                    *ngFor="let index of arrayPages"
+                    mat-icon-button
+                    class="pagination__page-number"
+                    [class.current-page]="currentPage === index"
+                    (click)="selectedPage(index)"
+                >
+                    {{ index + 1 }}
+                </button>
+            </div>
+            <button mat-icon-button (click)="next()">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+    </ng-container>
 </div>
-<!-- </ng-template> -->
 
 <ng-template #loaderTemplate>
     <mat-spinner></mat-spinner>
