@@ -13,6 +13,7 @@ export class ProductsListComponent implements OnInit {
   public productsStoreAll: IProduct[] | null = null;
   private startGap = 0;
   private viewGap = 6;
+  private minViewLength = 6;
   private scrollMemory: boolean[] = [];
 
   ngOnInit(): void {
@@ -41,32 +42,39 @@ export class ProductsListComponent implements OnInit {
 
   onLoad(value: boolean) {
     this.scrollMemory.push(value);
-    let direction = false;
     if (this.productsStoreAll) {
-      if (this.scrollMemory.length === 4) {
-        const getNumberOfValues = this.scrollMemory.filter(item => !item);
-        direction = getNumberOfValues.length <= 1;
-        this.scrollMemory = [];
-      } else {
-        return;
-      }
-      console.log(direction);
+      const direction = this.isScrollMemoryFilled();
       if (direction) {
         //вниз
         if (this.viewGap === this.productsStoreAll.length) {
+          // проверка на то, что значение для вывода карточек отобразило весь список
           return;
         }
+        // добавление шага для вывода карточек на экран
         this.viewGap = this.viewGap + 3;
         this.startGap = this.startGap + 1;
       } else {
         //вверх
-        if (this.viewGap === 6) {
+        if (this.viewGap === this.minViewLength) {
+          // проверка на то, что значение для вывода карточек равна минимальному количеству карточек
           return;
         }
+        // убавление шага для вывода карточек на экран
         this.viewGap = this.viewGap - 3;
         this.startGap = this.startGap - 3;
       }
       this.productsStoreView = this.getProductsViewElements();
+    }
+  }
+
+  private isScrollMemoryFilled(): boolean | null {
+    if (this.scrollMemory.length === 4) {
+      const getNumberOfValues = this.scrollMemory.filter(item => !item);
+      console.log(getNumberOfValues);
+      this.scrollMemory = [];
+      return getNumberOfValues.length <= 1;
+    } else {
+      return null;
     }
   }
 }

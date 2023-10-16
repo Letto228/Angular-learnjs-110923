@@ -12,8 +12,11 @@ export class ScrollWithLoadingDirective {
   onScroll({ scrollTop, clientHeight, scrollHeight }: HTMLElement) {
     const prevScrollTop = this.prevScrollTop;
     this.prevScrollTop = scrollTop;
+
+    const isScrollToBottom = scrollTop > prevScrollTop;
     const lowerScrollPosition = scrollHeight - clientHeight;
-    const shouldLoadMessagesDown = lowerScrollPosition - scrollTop < borderOffset && scrollTop > prevScrollTop;
+    const isIntersectedBottomOffset = lowerScrollPosition - scrollTop < borderOffset;
+    const shouldLoadMessagesDown = isScrollToBottom && isIntersectedBottomOffset;
 
     if (shouldLoadMessagesDown) {
       this.loadData.emit(true);
