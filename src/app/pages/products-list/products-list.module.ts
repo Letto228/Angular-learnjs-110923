@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { DumpNgIfModule } from '../../shared/dump-ng-if/dump-ng-if.module';
-import { FilterByPropertyPipe } from '../../shared/filter-by-property/filter-by-property.pipe';
+import { FilterByNamePipe } from '../../shared/filter-by-name/filter-by-name.pipe';
 import { MyAsyncModule } from '../../shared/my-async/my-async.module';
 import { PaginationModule } from '../../shared/pagination/pagination.module';
 
@@ -24,7 +24,7 @@ import { ProductsListComponent } from './products-list.component';
     MatIconModule,
     PaginationModule,
     MyAsyncModule,
-    FilterByPropertyPipe,
+    FilterByNamePipe,
     MatInputModule
   ],
   exports: [ProductsListComponent]

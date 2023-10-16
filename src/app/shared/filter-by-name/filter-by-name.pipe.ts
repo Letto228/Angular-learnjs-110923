@@ -6,13 +6,13 @@ import { IProduct } from '../products/product.interface';
   name: 'findItemByName',
   standalone: true
 })
-export class FilterByPropertyPipe implements PipeTransform {
+export class FilterByNamePipe implements PipeTransform {
   transform(items: IProduct[] | undefined | null, searchingProperty: string): IProduct[] | undefined | null {
     if (!items?.length) {
       return items;
     }
     const searchValueUpperCase = searchingProperty.toUpperCase();
 
-    return items.filter(item => item.name.toUpperCase().includes(searchValueUpperCase));
+    return items.filter(({ name }) => name.toUpperCase().includes(searchValueUpperCase));
   }
 }
