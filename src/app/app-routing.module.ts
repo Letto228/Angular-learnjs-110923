@@ -14,7 +14,17 @@ const routes: Routes = [
     },
     {
         path: 'products-list', // ['products-list']
-        component: ProductsListComponent,
+        children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                component: ProductsListComponent,
+            },
+            {
+                path: ':categoryId',
+                component: ProductsListComponent,
+            },
+        ],
     },
     // { old config
     //     path: ':id/root',
