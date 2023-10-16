@@ -57,7 +57,7 @@ export class PaginationDirective<T> implements OnInit, OnChanges {
 
     private getCurrentContext(currentIndex: number): IPaginationContext<T> {
         const from: number = currentIndex * this.pageSize;
-        const to: number = currentIndex * this.pageSize + this.pageSize;
+        const to: number = from + this.pageSize;
 
         return {
             $implicit: this.appPaginationOf!.slice(from, to),
