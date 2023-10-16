@@ -15,7 +15,7 @@ import {IPaginationContext} from './pagination-context.interface';
 })
 export class PaginationDirective<T> implements OnInit, OnChanges {
     @Input() appPaginationOf: T[] | undefined | null;
-    @Input() pageSize = 5;
+    @Input() appPaginationPageSize = 5;
 
     private readonly currentPage$ = new BehaviorSubject<number>(0);
 
@@ -24,8 +24,8 @@ export class PaginationDirective<T> implements OnInit, OnChanges {
         private readonly templateRef: TemplateRef<IPaginationContext<T>>,
     ) {}
 
-    ngOnChanges({appPaginationOf, pageSize}: SimpleChanges) {
-        if (appPaginationOf || pageSize) {
+    ngOnChanges({appPaginationOf, appPaginationPageSize}: SimpleChanges) {
+        if (appPaginationOf || appPaginationPageSize) {
             this.updateView();
         }
     }
@@ -56,15 +56,15 @@ export class PaginationDirective<T> implements OnInit, OnChanges {
     }
 
     private getCurrentContext(currentIndex: number): IPaginationContext<T> {
-        const from: number = currentIndex * this.pageSize;
-        const to: number = from + this.pageSize;
+        const from: number = currentIndex * this.appPaginationPageSize;
+        const to: number = from + this.appPaginationPageSize;
 
         return {
             $implicit: this.appPaginationOf!.slice(from, to),
             currentPage: currentIndex,
-            arrayPages: [...new Array(Math.ceil(this.appPaginationOf!.length / this.pageSize))].map(
-                (_, i) => i,
-            ),
+            arrayPages: [
+                ...new Array(Math.ceil(this.appPaginationOf!.length / this.appPaginationPageSize)),
+            ].map((_, i) => i),
             appPaginationOf: this.appPaginationOf as T[],
             next: () => {
                 this.next();
@@ -81,14 +81,16 @@ export class PaginationDirective<T> implements OnInit, OnChanges {
     private next(): void {
         const nextIndex = this.currentPage$.value + 1;
         const newIndex =
-            nextIndex < Math.ceil(this.appPaginationOf!.length / this.pageSize) ? nextIndex : 0;
+            nextIndex < Math.ceil(this.appPaginationOf!.length / this.appPaginationPageSize)
+                ? nextIndex
+                : 0;
 
         this.currentPage$.next(newIndex);
     }
 
     private back(): void {
         const previousIndex = this.currentPage$.value - 1;
-        const lastIndex = Math.trunc(this.appPaginationOf!.length / this.pageSize);
+        const lastIndex = Math.trunc(this.appPaginationOf!.length / this.appPaginationPageSize);
         const newIndex = previousIndex >= 0 ? previousIndex : lastIndex;
 
         this.currentPage$.next(newIndex);
