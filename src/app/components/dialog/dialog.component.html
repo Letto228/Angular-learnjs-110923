@@ -1,0 +1,5 @@
+<div class="popup-host" *ngIf="templateContent$ | async as templateContent">
+  <div class="content-wrapper" *ngIf="templateContent.template">
+    <ng-container *ngTemplateOutlet="templateContent.template; context: templateContent.context"></ng-container>
+  </div>
+</div>

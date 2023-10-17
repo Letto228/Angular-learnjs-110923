@@ -1,30 +1,28 @@
 <mat-toolbar color="primary">
-    <button
-        mat-icon-button
-        aria-label="Example icon-button with menu icon"
-        class="example-icon"
-        (click)="menuClick.emit()"
-    >
-        <mat-icon>menu</mat-icon>
-    </button>
-    <img alt="logo" class="shop-icon" [src]="applicationConfig?.shopIconSrc" />
-    <span>{{ applicationConfig?.title }}</span>
-    <span class="example-spacer"></span>
-    <button
-        mat-icon-button
-        aria-label="Example icon-button with heart icon"
-        class="example-icon favorite-icon"
-        (click)="openPopup(favoritePopupTempalte)"
-    >
-        <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button aria-label="Example icon-button with share icon" class="example-icon">
-        <mat-icon>share</mat-icon>
-    </button>
+  <button
+    class="example-icon"
+    (click)="menuClick.emit()"
+    mat-icon-button
+    aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img class="shop-icon" [src]="applicationConfig?.shopIconSrc" alt="logo" />
+  <span>{{ applicationConfig?.title }}</span>
+  <span class="example-spacer"></span>
+  <button
+    class="example-icon favorite-icon"
+    (click)="openPopup(first)"
+    mat-icon-button
+    aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button class="example-icon" mat-icon-button aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
 </mat-toolbar>
 
-<ng-template #favoritePopupTempalte let-title>
-    {{ title }}
-    <h1>No, you are favorite</h1>
-    <button (click)="closePopup()">I know</button>
+<ng-template #first let-title>
+  <h2>{{ title }}</h2>
+  <p>Is first template</p>
+  <button (click)="closeDialog()" type="button" mat-button>Close</button>
 </ng-template>
