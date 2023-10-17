@@ -58,13 +58,14 @@ export class PaginationDirective<T> implements OnInit, OnChanges {
     private getCurrentContext(currentIndex: number): IPaginationContext<T> {
         const from: number = currentIndex * this.appPaginationPageSize;
         const to: number = from + this.appPaginationPageSize;
+        const itemsLength = this.appPaginationOf!.length;
+        const pagesLength = Math.ceil(itemsLength / this.appPaginationPageSize);
+        const arrayPages = Array.from({length: pagesLength}, (_value, index) => index);
 
         return {
             $implicit: this.appPaginationOf!.slice(from, to),
             currentPage: currentIndex,
-            arrayPages: [
-                ...new Array(Math.ceil(this.appPaginationOf!.length / this.appPaginationPageSize)),
-            ].map((_, i) => i),
+            arrayPages,
             appPaginationOf: this.appPaginationOf as T[],
             next: () => {
                 this.next();
