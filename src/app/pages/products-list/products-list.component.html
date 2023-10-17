@@ -2,7 +2,7 @@
   <input (keydown)="onInputChange($event)" matInput />
   <ng-container
     *appPagination="
-      let productsGroup of products | FilterByNamePipe : findProductByName;
+      let productsGroup of products | findItemByName : findProductByName;
       chankSize: 4;
       let pageIndexes = pageIndexes;
       let activeIndex = index;
