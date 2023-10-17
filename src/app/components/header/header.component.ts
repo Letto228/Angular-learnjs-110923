@@ -23,7 +23,7 @@ export class HeaderComponent {
     });
   }
 
-  closePopup() {
+  closeDialog() {
     this.popupService.closePopup();
   }
 }

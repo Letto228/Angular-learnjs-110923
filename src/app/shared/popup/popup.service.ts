@@ -7,8 +7,7 @@ import { IPopupContent } from './popup-content.interface';
   providedIn: 'root'
 })
 export class PopupService {
-  private readonly popupTemplateStore$ = new BehaviorSubject<IPopupContent<object> | null>(null);
-  private readonly popupTemplate$ = this.popupTemplateStore$.asObservable();
+  public readonly popupTemplateStore$ = new BehaviorSubject<IPopupContent<object> | null>(null);
 
   openPopup<T extends object>(popupContent: IPopupContent<T>) {
     this.popupTemplateStore$.next(popupContent);
