@@ -9,20 +9,25 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import {FormArray, FormBuilder, FormControl} from '@angular/forms';
-import {Observable, map} from 'rxjs';
+import {Observable, debounceTime, map, takeUntil} from 'rxjs';
 import {IProductsFilterForm} from './products-filter-form.interface';
 import {IProductsFilter} from './products-filter.interface';
+import {DestroyService} from '../../../shared/destroy/destroy.service';
 
 @Component({
     selector: 'app-filter',
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [DestroyService],
 })
 export class FilterComponent implements OnChanges, OnInit {
     @Input() brands: string[] | null = null;
+    @Input() initialFilter!: IProductsFilter;
 
     @Output() changeFilter = new EventEmitter<IProductsFilter>();
+    // Output by stream
+    // @Output() readonly changeFilter: Observable<IProductsFilter>;
 
     readonly filterForm = this.formBuilder.group({
         name: '',
@@ -33,16 +38,29 @@ export class FilterComponent implements OnChanges, OnInit {
         brands: this.formBuilder.array<FormControl<boolean>>([]),
     });
 
-    constructor(private readonly formBuilder: FormBuilder) {}
+    constructor(
+        private readonly formBuilder: FormBuilder,
+        private readonly destroy$: DestroyService,
+    ) {
+        // Необходимо делать это в конструкторе, т.к. при создании потока нужна уже созданная форма (filterForm)
+        // this.changeFilter = this.getFilterStream$();
+    }
 
     ngOnInit() {
         this.listenFormChange();
+        this.updateInitialFormValue();
     }
 
     ngOnChanges({brands}: SimpleChanges) {
         if (brands) {
             this.updateBrandsControl();
         }
+    }
+
+    private updateInitialFormValue() {
+        const {name, priceRange} = this.initialFilter;
+
+        this.filterForm.patchValue({name, priceRange});
     }
 
     private updateBrandsControl() {
@@ -60,20 +78,35 @@ export class FilterComponent implements OnChanges, OnInit {
 
         changeFormValue$
             .pipe(
-                map(
-                    ({brands, ...otherFormsValue}): IProductsFilter => ({
-                        ...otherFormsValue,
-                        brands: this.getSelectedBrands(brands as boolean[]),
-                    }),
-                ),
+                debounceTime(300),
+                map(formValue => ({
+                    ...formValue,
+                    brands: this.getSelectedBrands(formValue.brands),
+                })),
+                takeUntil(this.destroy$),
             )
-            // eslint-disable-next-line no-console
-            .subscribe(console.log);
+            .subscribe(filter => {
+                this.changeFilter.emit(filter);
+            });
     }
 
-    private getSelectedBrands(brandSelection: boolean[]): string[] {
+    private getSelectedBrands(brandSelection: boolean[]): IProductsFilter['brands'] {
         return this.brands ? this.brands.filter((_brand, index) => brandSelection[index]) : [];
     }
+
+    // Output by stream
+    // private getFilterStream$(): Observable<IProductsFilter> {
+    //     return this.filterForm.valueChanges.pipe(
+    //         map(
+    //             ({brands, name, ...otherValues}) =>
+    //                 ({
+    //                     ...otherValues,
+    //                     name,
+    //                     brands: this.getBrandsListFromArray(brands as boolean[]),
+    //                 } as IProductsFilter),
+    //         ),
+    //     );
+    // }
 }
 
 // Template driven Forms
