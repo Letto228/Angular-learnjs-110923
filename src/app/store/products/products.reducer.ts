@@ -1,11 +1,15 @@
 import {createReducer, on} from '@ngrx/store';
-import {productsInitialState} from './products.state';
-import {addProducts} from './products.actions';
+import {productsAdapter, productsInitialState} from './products.state';
+import {addProducts, setMinPrice} from './products.actions';
 
 export const productsReducer = createReducer(
     productsInitialState,
-    on(addProducts, (state, {products}) => ({
+    on(addProducts, (state, {products}) => productsAdapter.setAll(products, state)),
+    on(setMinPrice, (state, {price}) => ({
         ...state,
-        data: products,
+        priceRange: {
+            min: price,
+            max: state.priceRange.max,
+        },
     })),
 );
